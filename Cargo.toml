@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ring = "0.17.8"
+ring = "0.16"
 # cc = "=1.0.89"
 
 [lib]
