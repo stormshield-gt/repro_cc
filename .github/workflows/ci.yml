@@ -18,9 +18,10 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-apple-ios
+          targets: x86_64-apple-darwin
 
       - name: Lipo macos
         run: |
-          cargo build --target x86_64-apple-ios
-          lipo -archs target/x86_64-apple-ios/debug/librepro.a
+          cargo build --target aarch64-apple-darwin
+          cargo build --target x86_64-apple-darwin
+          lipo -archs target/x86_64-apple-darwin/debug/librepro.a

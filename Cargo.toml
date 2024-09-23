@@ -4,8 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ring = "0.17.8"
-cc = "=1.0.89"
+aws-lc-rs = "1.9.0"
+ring = "0.17"
+# cc = "=1.0.89"
 
 [lib]
 name = "repro"
