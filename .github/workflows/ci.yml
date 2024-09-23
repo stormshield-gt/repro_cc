@@ -25,15 +25,16 @@ jobs:
 
       - name: Lipo macos
         run: |
+          export CARGO_TERM_VERBOSE=true
           xcodebuild -version
           cargo rustc --target=aarch64-apple-darwin --crate-type=staticlib --profile=release --lib
           cargo rustc --target=x86_64-apple-darwin --crate-type=staticlib --profile=release --lib
 
           # This one is only to generate symbol
-          cargo rustc --target=aarch64-apple-darwin --crate-type=staticlib --profile=dev --lib
-          mkdir swift
-          cargo r --bin uniffi-bindgen generate --library target/aarch64-apple-darwin/debug/librepro.a --language swift --out-dir swift
-          ls swift
+          # cargo rustc --target=aarch64-apple-darwin --crate-type=staticlib --profile=dev --lib
+          # mkdir swift
+          # cargo r --bin uniffi-bindgen generate --library target/aarch64-apple-darwin/debug/librepro.a --language swift --out-dir swift
+          # ls swift
 
           lipo -archs target/aarch64-apple-darwin/release/librepro.a
           lipo -archs target/x86_64-apple-darwin/release/librepro.a

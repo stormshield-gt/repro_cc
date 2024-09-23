@@ -17,7 +17,7 @@ crate-type = ["staticlib","cdylib"]
 name = "uniffi-bindgen"
 path = "src/uniffi-bindgen.rs"
 
-[profile.release]
-panic = "abort"
-lto = true
-strip = true
+# [profile.release]
+# panic = "abort"
+# lto = true
+# strip = true
