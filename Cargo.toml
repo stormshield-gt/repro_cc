@@ -4,14 +4,14 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-aws-lc-rs = { version = "1.9.0", features = ["bindgen"]}
+# aws-lc-rs = { version = "1.9.0", features = ["bindgen"]}
 ring = "0.17"
 uniffi = { version = "0.28.1", features = ["cli"] }
 # cc = "=1.0.89"
 
-[lib]
-name = "repro"
-crate-type = ["staticlib","cdylib"]
+# [lib]
+# name = "repro"
+# crate-type = ["staticlib","cdylib"]
 
 [[bin]]
 name = "uniffi-bindgen"

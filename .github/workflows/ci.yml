@@ -27,6 +27,8 @@ jobs:
         run: |
           export CARGO_TERM_VERBOSE=true
           xcodebuild -version
+          xcrun --sdk macosx --show-sdk-path
+          uname -a
           cargo rustc --target=aarch64-apple-darwin --crate-type=staticlib --profile=release --lib
           cargo rustc --target=x86_64-apple-darwin --crate-type=staticlib --profile=release --lib
 
