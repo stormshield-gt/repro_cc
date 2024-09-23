@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+aws-lc-rs = "1.9.0"
 ring = "0.17"
 # cc = "=1.0.89"
 
