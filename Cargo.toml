@@ -1,0 +1,12 @@
+[package]
+name = "repro"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ring = "0.17.8"
+cc = "=1.0.89"
+
+[lib]
+name = "repro"
+crate-type = ["staticlib"]

@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lipo-macos:
+    name: Lipo macos
+    # aarch64 runner
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-apple-ios
+
+      - name: Lipo macos
+        run: |
+          cargo build --target x86_64-apple-ios
+          lipo -archs target/x86_64-apple-ios/debug/librepro.a
