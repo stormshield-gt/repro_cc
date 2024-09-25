@@ -12,15 +12,32 @@ jobs:
     # aarch64 runner
     runs-on: macos-14
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.0.1'
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-apple-ios
+          targets: x86_64-apple-darwin
 
       - name: Lipo macos
         run: |
-          cargo build --target x86_64-apple-ios
-          lipo -archs target/x86_64-apple-ios/debug/librepro.a
+          export CARGO_TERM_VERBOSE=true
+          xcodebuild -version
+          xcrun --sdk macosx --show-sdk-path
+          uname -a
+          cargo rustc --target=aarch64-apple-darwin --crate-type=staticlib --profile=release --lib
+          cargo rustc --target=x86_64-apple-darwin --crate-type=staticlib --profile=release --lib
+
+          # This one is only to generate symbol
+          # cargo rustc --target=aarch64-apple-darwin --crate-type=staticlib --profile=dev --lib
+          # mkdir swift
+          # cargo r --bin uniffi-bindgen generate --library target/aarch64-apple-darwin/debug/librepro.a --language swift --out-dir swift
+          # ls swift
+
+          lipo -archs target/aarch64-apple-darwin/release/librepro.a
+          lipo -archs target/x86_64-apple-darwin/release/librepro.a
+          lipo target/aarch64-apple-darwin/release/librepro.a target/x86_64-apple-darwin/release/librepro.a -create -output universal.a
