@@ -1,0 +1,15 @@
+[package]
+name = "tracing-os-log"
+version = "0.0.0"
+authors = ["labo mesh <labo.mesh@stormshield.eu>"]
+edition = { workspace = true }
+description = "A layer for tracing that outputs to the OSLog on macOS/iOS"
+publish = false
+
+[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
+tracing-core = { version = "0.1.32", default-features = false, features = ["std"] }
+tracing-subscriber = { version = "0.3.18", default-features = false, features = ["std", "fmt"] }
+
+[build-dependencies]
+bindgen = { version = "0.69", default-features = false, features = ["runtime"] }
+cc = { version = "1.0", default-features = false, features = [] }

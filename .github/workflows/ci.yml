@@ -12,15 +12,24 @@ jobs:
     # aarch64 runner
     runs-on: macos-14
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.0.1'
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-apple-ios
+          targets: x86_64-apple-darwin
 
       - name: Lipo macos
         run: |
-          cargo build --target x86_64-apple-ios
-          lipo -archs target/x86_64-apple-ios/debug/librepro.a
+          uname -a
+          xcodebuild -version
+          xcrun --sdk macosx --show-sdk-path
+
+          cargo rustc --target aarch64-apple-darwin --package repro --profile release --crate-type=staticlib
+          cargo rustc --target x86_64-apple-darwin --package repro --profile release --crate-type=staticlib
+          lipo -archs target/aarch64-apple-darwin/release/librepro.a
+          lipo -archs target/x86_64-apple-darwin/release/librepro.a
