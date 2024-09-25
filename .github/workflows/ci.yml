@@ -11,7 +11,14 @@ jobs:
     name: Lipo macos
     # aarch64 runner
     runs-on: macos-14
+    env:
+      SCCACHE_GHA_ENABLED: "true"
+      RUSTC_WRAPPER: "sccache"
+      CC_ENABLE_DEBUG_OUTPUT: "1"
     steps:
+      - uses: mozilla-actions/sccache-action@v0.0.5
+        with:
+          version: "v0.7.4" 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '15.0.1'
@@ -28,8 +35,9 @@ jobs:
           uname -a
           xcodebuild -version
           xcrun --sdk macosx --show-sdk-path
+          sccache --version
 
-          cargo rustc --target aarch64-apple-darwin --package repro --profile release --crate-type=staticlib
-          cargo rustc --target x86_64-apple-darwin --package repro --profile release --crate-type=staticlib
-          lipo -archs target/aarch64-apple-darwin/release/librepro.a
-          lipo -archs target/x86_64-apple-darwin/release/librepro.a
+          cargo -vv rustc --target aarch64-apple-darwin --package repro --profile dev --crate-type=staticlib
+          cargo -vv rustc --target x86_64-apple-darwin --package repro --profile dev --crate-type=staticlib
+          lipo -archs target/aarch64-apple-darwin/debug/librepro.a
+          lipo -archs target/x86_64-apple-darwin/debug/librepro.a
