@@ -37,7 +37,7 @@ jobs:
           xcrun --sdk macosx --show-sdk-path
           sccache --version
 
-          cargo -vv rustc --target aarch64-apple-darwin --package repro --profile dev --crate-type=staticlib
-          cargo -vv rustc --target x86_64-apple-darwin --package repro --profile dev --crate-type=staticlib
+          cargo -vv rustc --target aarch64-apple-darwin --package repro --profile dev --crate-type=staticlib -- -Awarnings
+          cargo -vv rustc --target x86_64-apple-darwin --package repro --profile dev --crate-type=staticlib -- -Awarnings
           lipo -archs target/aarch64-apple-darwin/debug/librepro.a
           lipo -archs target/x86_64-apple-darwin/debug/librepro.a
