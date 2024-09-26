@@ -17,8 +17,8 @@ jobs:
       CC_ENABLE_DEBUG_OUTPUT: "1"
     steps:
       - uses: mozilla-actions/sccache-action@v0.0.5
-        with:
-          version: "v0.7.4" 
+        # with:
+        #   version: "v0.7.4" 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '15.0.1'
